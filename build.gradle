@@ -19,6 +19,11 @@ allprojects {
         flatDir {
             dirs 'libs'
         }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
     }
 }
 
