@@ -44,11 +44,7 @@ public class BluetoothDevicesProvider {
 
     public void onActivityResultTurnOnBluetooth(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-<<<<<<< HEAD
             Toast.makeText(context, "Bluetooth activado correctamente", Toast.LENGTH_LONG).show();
-=======
-            Toast.makeText(context, "BLUETOOTH WAS ENABLED", Toast.LENGTH_LONG).show();
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
         }
     }
 
@@ -81,29 +77,13 @@ public class BluetoothDevicesProvider {
 
 
     public void onActivityResultCompanionFoundDevice(int requestCode, int resultCode, @Nullable Intent data) {
-<<<<<<< HEAD
         if (resultCode == Activity.RESULT_OK && data != null) {
             Log.i("BLUETOOTH_DETECTOR_PROVIDER", "DEVICE FOUND, LET'S TRY BOUND");
-=======
-        Toast.makeText(context, "Found a device", Toast.LENGTH_SHORT).show();
-
-        if (resultCode == Activity.RESULT_OK && data != null) {
-            Toast.makeText(context, "It went all well", Toast.LENGTH_SHORT).show();
-            Log.i("BLUETOOTH_DETECTOR_PROVIDER", "DEVICE FOUND, LET'S TRY BOUND");
-
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
             BluetoothDevice deviceToPair = data.getParcelableExtra(
                     CompanionDeviceManager.EXTRA_DEVICE
             );
 
             if (deviceToPair != null) {
-<<<<<<< HEAD
-=======
-                Toast.makeText(context, "We can do a bond", Toast.LENGTH_SHORT).show();
-                Log.i("BLUETOOTH_DETECTOR_PROVIDER", "TRYING A BOUND");
-
-
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
                 Log.i("BLUETOOTH_DETECTOR_PROVIDER", "Bluetooth class " + deviceToPair.getBluetoothClass());
 
                 deviceToPair.createBond();

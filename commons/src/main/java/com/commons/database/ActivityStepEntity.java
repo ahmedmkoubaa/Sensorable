@@ -5,11 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-<<<<<<< HEAD
 import java.util.Objects;
 
-=======
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
 
 @Entity
 public class ActivityStepEntity {
@@ -26,7 +23,6 @@ public class ActivityStepEntity {
         this.title = title;
     }
 
-<<<<<<< HEAD
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -40,16 +36,11 @@ public class ActivityStepEntity {
         return Objects.hash(id, title);
     }
 
-=======
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
     public int getId() {
         return id;
     }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
     public String getTitle() {
         return title;
     }

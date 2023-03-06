@@ -1,20 +1,12 @@
 package com.commons.devicesDetection;
 
 import android.Manifest;
-<<<<<<< HEAD
-=======
-import android.app.Activity;
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.NetworkInfo;
-<<<<<<< HEAD
-=======
-import android.net.wifi.WifiManager;
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
 import android.net.wifi.WpsInfo;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
@@ -23,37 +15,20 @@ import android.net.wifi.p2p.WifiP2pGroup;
 import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.util.Log;
-<<<<<<< HEAD
-=======
-import android.widget.Toast;
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-<<<<<<< HEAD
-=======
-import java.nio.channels.Channel;
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
 import java.util.ArrayList;
 import java.util.List;
 
 public class WifiDirectDevicesProvider {
-<<<<<<< HEAD
     private final IntentFilter wifiDirectIntentFilter = new IntentFilter();
     private final AppCompatActivity activity;
     private final List<WifiP2pDevice> peers = new ArrayList<WifiP2pDevice>();
     private WifiP2pManager.Channel channel;
     private WifiP2pManager wifiDirectManager;
-=======
-    private AppCompatActivity activity;
-
-    private final IntentFilter wifiDirectIntentFilter = new IntentFilter();
-    private WifiP2pManager.Channel channel;
-    private WifiP2pManager wifiDirectManager;
-    private List<WifiP2pDevice> peers = new ArrayList<WifiP2pDevice>();
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
     private WifiP2pManager.PeerListListener peerListListener;
     private WifiP2pManager.ConnectionInfoListener connectionListener;
     private BroadcastReceiver wifiDirectReceiver;
@@ -91,11 +66,7 @@ public class WifiDirectDevicesProvider {
         channel = wifiDirectManager.initialize(activity, activity.getMainLooper(), new WifiP2pManager.ChannelListener() {
             @Override
             public void onChannelDisconnected() {
-<<<<<<< HEAD
 
-=======
-                Toast.makeText(activity, "Channel disconnected", Toast.LENGTH_SHORT).show();
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
                 Log.i("WIFI_DIRECT_CHANNEL", "channel disconnected");
             }
         });
@@ -114,20 +85,12 @@ public class WifiDirectDevicesProvider {
     }
 
     private void initializeWifiDirectReceiver() {
-<<<<<<< HEAD
-=======
-        Toast.makeText(activity, "DEFINED WIFI RECEIVER", Toast.LENGTH_SHORT).show();
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
         Log.i("WIFI_DIRECT_RECEIVER", "Defining receiver");
 
         wifiDirectReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
 
-<<<<<<< HEAD
-=======
-                Toast.makeText(activity, "Received something", Toast.LENGTH_SHORT).show();
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
                 final String TAG = "WIFI_DIRECT_RECEIVER";
 
                 String action = intent.getAction();
@@ -137,13 +100,8 @@ public class WifiDirectDevicesProvider {
                         // the Activity.
                         int state = intent.getIntExtra(WifiP2pManager.EXTRA_WIFI_STATE, -1);
                         Log.i(TAG, "enabled: " + (state == WifiP2pManager.WIFI_P2P_STATE_ENABLED));
-<<<<<<< HEAD
                         break;
 
-=======
-                        Toast.makeText(context, "Wifi direct state has changed", Toast.LENGTH_SHORT).show();
-                        break;
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
                     case WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION:
                         // The peer list has changed! We should probably do something about
                         // that.
@@ -161,10 +119,6 @@ public class WifiDirectDevicesProvider {
                         }
 
                         Log.i(TAG, "P2P peers changed");
-<<<<<<< HEAD
-=======
-                        Toast.makeText(context, "We've found some peers", Toast.LENGTH_SHORT).show();
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
 
                         break;
 
@@ -176,11 +130,7 @@ public class WifiDirectDevicesProvider {
                             return;
                         }
 
-<<<<<<< HEAD
                         NetworkInfo networkInfo = intent
-=======
-                        NetworkInfo networkInfo = (NetworkInfo) intent
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
                                 .getParcelableExtra(WifiP2pManager.EXTRA_NETWORK_INFO);
 
                         if (networkInfo.isConnected()) {
@@ -189,12 +139,6 @@ public class WifiDirectDevicesProvider {
                             // info to find group owner IP
                             wifiDirectManager.requestConnectionInfo(channel, connectionListener);
                         }
-<<<<<<< HEAD
-=======
-
-                        Toast.makeText(context, "Connection state has been changed, are we connected?", Toast.LENGTH_SHORT).show();
-
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
                         break;
 
                     case WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION:
@@ -207,10 +151,6 @@ public class WifiDirectDevicesProvider {
 
                     default:
                         Log.i(TAG, "Non recognized action in receiver");
-<<<<<<< HEAD
-=======
-                        Toast.makeText(context, "Non recognized action", Toast.LENGTH_SHORT).show();
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
                         break;
                 }
             }
@@ -254,10 +194,6 @@ public class WifiDirectDevicesProvider {
             @Override
             public void onPeersAvailable(WifiP2pDeviceList peerList) {
                 Log.i("WIFI_DIRECT_PEERS_LISTENER", "Peers available");
-<<<<<<< HEAD
-=======
-                Toast.makeText(activity, "Peers availables", Toast.LENGTH_SHORT).show();
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
 
                 List<WifiP2pDevice> refreshedPeers = new ArrayList<>(peerList.getDeviceList());
                 if (!refreshedPeers.equals(peers)) {
@@ -284,10 +220,6 @@ public class WifiDirectDevicesProvider {
     }
 
     public void connectToAWifiDirectPeer() {
-<<<<<<< HEAD
-=======
-        Toast.makeText(activity, "trying to connect to a new peer", Toast.LENGTH_SHORT).show();
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
         Log.i("WIFI_DIRECT_CONNECTION", "trying to connect to a new peer");
 
         // Picking the first device found on the network.
@@ -314,13 +246,8 @@ public class WifiDirectDevicesProvider {
 
             @Override
             public void onFailure(int reason) {
-<<<<<<< HEAD
 
                 Log.i("WIFI_DIRECT_CONNECT", "conection with remote peer has failed, reason: " + reason);
-=======
-                Toast.makeText(activity, "Connect failed. Retry.",
-                        Toast.LENGTH_SHORT).show();
->>>>>>> 810a0007043752cf8e90356a8aeac68494f1e25f
             }
         });
     }
