@@ -47,8 +47,7 @@ public class SensorsProviderService extends Service {
                             new SensorTransmissionCoder.SensorData(
                                     DeviceType.MOBILE,
                                     sensorEvent.sensor.getType(),
-                                    sensorEvent.values,
-                                    sensorEvent.timestamp
+                                    sensorEvent.values
                             ));
                 }
 

@@ -107,8 +107,7 @@ public class WearForegroundService extends Service {
                         new SensorTransmissionCoder.SensorData(
                                 WearosEnvironment.getDeviceType(),
                                 sensorEvent.sensor.getType(),
-                                sensorEvent.values,
-                                sensorEvent.timestamp
+                                sensorEvent.values
                         );
 
                 sensorSender.sendMessage(newSensorEvent);
