@@ -57,6 +57,10 @@ public class WearForegroundService extends Service {
     private SensorMessageDao sensorMessageDao;
     private ExecutorService executor;
 
+    private SensorsProvider sensorsProvider;
+    private WearSensorDataSender sensorSender;
+    private SensorEventListener listenerDataSender;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -96,10 +100,10 @@ public class WearForegroundService extends Service {
         // function to do as a foregound service
         Log.d(TAG, "Working properly");
 
-        SensorsProvider sensorsProvider = new SensorsProvider(this);
-        WearSensorDataSender sensorSender = new WearSensorDataSender(this);
+        sensorsProvider = new SensorsProvider(this);
+        sensorSender = new WearSensorDataSender(this);
 
-        SensorEventListener listenerDataSender = new SensorEventListener() {
+        listenerDataSender = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent sensorEvent) {
 
@@ -226,8 +230,15 @@ public class WearForegroundService extends Service {
 
         // Set the service to stopped
         isServiceStarted = false;
-        isServiceStarted = false;
         ServiceStatePreferences.setServiceState(this, ServiceState.STOPPED);
+        ServiceStatePreferences.setServiceState(this, ServiceState.STOPPED);
+
+        // remove sensors listener to avoid receving new data
+        removeSensorsListeners();
+    }
+
+    private void removeSensorsListeners() {
+            sensorsProvider.unsubscribeToSensor(listenerDataSender);
     }
 
 }

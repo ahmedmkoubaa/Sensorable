@@ -24,6 +24,8 @@ public class ConfigActivity extends WearableActivity {
         setContentView(R.layout.activity_config);
 
         userCode = (TextView) findViewById(R.id.userIdText);
+        userCode.setText(getUserCode());
+
         confirmUsercode = (Button) findViewById(R.id.saveUserIdButton);
         confirmUsercode.setOnClickListener(view -> LoginHelper.saveLogin(this, userCode.getText().toString()));
 
@@ -37,5 +39,9 @@ public class ConfigActivity extends WearableActivity {
 
         // Enables Always-on
         setAmbientEnabled();
+    }
+
+    private String getUserCode() {
+        return LoginHelper.getUserCode(this) == null ? "" : LoginHelper.getUserCode(this);
     }
 }

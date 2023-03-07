@@ -62,6 +62,7 @@ public class SensorsProvider {
         sensorManager.registerListener(listener, newSensor, delay);
     }
 
+    //
     public void unsubscribeToSensor(SensorEventListener listener) {
         initializeSensorManager();
         sensorManager.unregisterListener(listener);
