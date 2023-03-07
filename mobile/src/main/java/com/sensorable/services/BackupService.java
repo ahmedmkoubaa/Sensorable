@@ -27,7 +27,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-public class BackupService extends Service {
+public class BackUpService extends Service {
     private final Handler handler = new Handler();
     private SensorMessageDao sensorMessageDao;
     private ExecutorService executor;
@@ -83,7 +83,7 @@ public class BackupService extends Service {
     }
 
     private void initializeMobileDatabase() {
-        sensorMessageDao = DatabaseBuilder.getDatabase(BackupService.this).sensorMessageDao();
+        sensorMessageDao = DatabaseBuilder.getDatabase(BackUpService.this).sensorMessageDao();
         executor = DatabaseBuilder.getExecutor();
     }
 

@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.IBinder;
 
 import com.commons.services.CsvSensorsSaverService;
-import com.commons.utils.DeviceType;
-import com.commons.utils.SensorableConstants;
 import com.commons.utils.SensorableServicesManager;
 
 public class ManagerService extends Service {
@@ -62,7 +60,7 @@ public class ManagerService extends Service {
     }
 
     private void initializeBackUpService() {
-        initializeService(BackupService.class);
+        initializeService(BackUpService.class);
     }
 
     private void initializeCsvSaverService() {

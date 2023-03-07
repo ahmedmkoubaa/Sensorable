@@ -67,7 +67,7 @@
         <activity android:name=".activities.ActivitiesRegisterActivity" />
 
         <service
-            android:name=".services.BackupService"
+            android:name=".services.BackUpService"
             android:enabled="true"
             android:exported="true" />
         <service
