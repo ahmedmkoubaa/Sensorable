@@ -14,32 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:keepScreenOn="true"
-
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/configuButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:keepScreenOn="true"
-            android:orientation="horizontal">
-
-            <ToggleButton
-                android:id="@+id/rightHand"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:keepScreenOn="true"
-                android:minHeight="65dp"
-                android:text="¿Mano?"
-                android:textOff="Izquierda"
-                android:textOn="Derecha"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/configuButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Configurar" />
-        </LinearLayout>
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:text="Configurar" />
 
 
         <ListView
