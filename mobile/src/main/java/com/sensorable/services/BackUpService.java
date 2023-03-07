@@ -12,13 +12,13 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.commons.database.SensorMessageDao;
+import com.commons.database.SensorMessageEntity;
+import com.commons.utils.DatabaseBuilder;
 import com.commons.utils.LoginHelper;
 import com.commons.utils.SensorTransmissionCoder;
 import com.commons.utils.SensorableConstants;
 import com.commons.utils.SensorableIntentFilters;
-import com.commons.database.SensorMessageDao;
-import com.commons.database.SensorMessageEntity;
-import com.commons.utils.DatabaseBuilder;
 import com.sensorable.utils.MqttHelper;
 
 import java.util.ArrayList;
@@ -112,7 +112,7 @@ public class BackUpService extends Service {
                     if (sensorsData != null && !sensorsData.isEmpty()) {
                         // Necessary to avoid concurrent errors while iterating
                         final AtomicInteger counter = new AtomicInteger();
-                        final int chunkSize = (int)(Math.ceil(sensorsData.size() / SensorableConstants.BACKUP_PART_SIZE));
+                        final int chunkSize = (int) (Math.ceil(sensorsData.size() / SensorableConstants.BACKUP_PART_SIZE));
 
                         sensorsData.stream()
                                 .collect(Collectors.groupingBy(it -> counter.getAndIncrement() % chunkSize))
@@ -151,7 +151,7 @@ public class BackUpService extends Service {
             // Generate the string message and send
             String payload = "[" + sensorsData.stream().map(SensorMessageEntity::toJson).collect(Collectors.joining(",")) + "]";
             MqttHelper.publish(SensorableConstants.MQTT_SENSORS_INSERT, payload.getBytes(), responseTopic);
-        } catch  (OutOfMemoryError | Exception e) {
+        } catch (OutOfMemoryError | Exception e) {
             e.printStackTrace();
             Log.e("BACK_UP_SERVICE", "An error happened again");
         }
