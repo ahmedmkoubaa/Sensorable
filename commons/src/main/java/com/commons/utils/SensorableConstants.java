@@ -115,7 +115,8 @@ public class SensorableConstants {
             new Pair(Sensor.TYPE_ACCELEROMETER, "TYPE_ACCELEROMETER"),
             new Pair(Sensor.TYPE_LINEAR_ACCELERATION, "TYPE_LINEAR_ACCELERATION"),
             new Pair(Sensor.TYPE_RELATIVE_HUMIDITY, "TYPE_RELATIVE_HUMIDITY"),
-            new Pair(Sensor.TYPE_AMBIENT_TEMPERATURE, "TYPE_AMBIENT_TEMPERATURE")
+            new Pair(Sensor.TYPE_AMBIENT_TEMPERATURE, "TYPE_AMBIENT_TEMPERATURE"),
+            new Pair(65572, "TYPE_RAW_PPG")
     );
 
 

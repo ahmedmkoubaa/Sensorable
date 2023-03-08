@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.stream.Collectors;
+import android.os.SystemClock;
 
 public class SensorTransmissionCoder {
     public static final String FIELDS_SEPARATOR = "~";
