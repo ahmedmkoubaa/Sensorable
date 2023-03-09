@@ -28,7 +28,6 @@ public class SensorsProviderService extends Service {
     private final ArrayList<SensorTransmissionCoder.SensorData> sensorMessagesBuffer = new ArrayList<>();
     private SensorsProvider sensorsProvider;
 
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 

@@ -19,7 +19,6 @@ import com.commons.utils.SensorTransmissionCoder;
 import com.commons.utils.SensorableConstants;
 import com.commons.utils.SensorableDates;
 import com.commons.utils.SensorableIntentFilters;
-import com.commons.utils.SensorsProvider;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.sensorable.MainActivity;
@@ -47,7 +46,6 @@ public class DetailedSensorsListActivity extends AppCompatActivity {
     private LineView lineView;
     private BarView barView;
 
-    private SensorsProvider sensorsProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +124,6 @@ public class DetailedSensorsListActivity extends AppCompatActivity {
 
 
     private void initializeSensors() {
-        sensorsProvider = new SensorsProvider(this);
 
         BroadcastReceiver sensorReceiver = new BroadcastReceiver() {
             @Override
