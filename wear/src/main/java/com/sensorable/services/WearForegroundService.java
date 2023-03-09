@@ -14,6 +14,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.os.SystemClock;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -44,7 +45,8 @@ public class WearForegroundService extends Service {
             Sensor.TYPE_STEP_COUNTER,
             Sensor.TYPE_LINEAR_ACCELERATION,
             Sensor.TYPE_ACCELEROMETER,
-            Sensor.TYPE_GYROSCOPE
+            Sensor.TYPE_GYROSCOPE,
+            65572 // Sensor PPG Raw
     };
 
     private final PowerManager.WakeLock wakeLock = null;
@@ -111,7 +113,8 @@ public class WearForegroundService extends Service {
                         new SensorTransmissionCoder.SensorData(
                                 WearosEnvironment.getDeviceType(),
                                 sensorEvent.sensor.getType(),
-                                sensorEvent.values
+                                sensorEvent.values,
+                                System.currentTimeMillis() + (sensorEvent.timestamp - SystemClock.elapsedRealtimeNanos()) / 1000000
                         );
 
                 sensorSender.sendMessage(newSensorEvent);

@@ -28,27 +28,21 @@ public class CsvSaver {
 
         File exportFile = new File(exportDir.getAbsolutePath(), fileName + SensorableConstants.FILE_EXTENSION_SEPARATOR + SensorableConstants.CSV_EXTENSION);
 
-        try {
-            exportFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            CSVWriter writer = new CSVWriter(new FileWriter(exportFile, true));
+        try{
+            FileWriter writer = new FileWriter(exportFile, true);
+            if (exportFile.length() == 0) {
+                writer.write("eje_x,eje_y,eje_z,timestamp");
+                writer.write(System.getProperty( "line.separator"));
+            }
 
             for (SensorMessageEntity sensorMessage : sensorMessages) {
-                String[] row = {
-                        String.valueOf(sensorMessage.valuesX),
-                        String.valueOf(sensorMessage.valuesY),
-                        String.valueOf(sensorMessage.valuesZ),
-                        String.valueOf(sensorMessage.timestamp),
-                };
-                writer.writeNext(row);
+                writer.write(sensorMessage.valuesX + "," + sensorMessage.valuesY + "," + sensorMessage.valuesZ + "," + sensorMessage.timestamp);
+                writer.write(System.getProperty( "line.separator" ));
             }
+            writer.flush();
             writer.close();
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             Log.e("CSV SAVER SERVICE", "FAILURE SAVING DATA" + e.getMessage());
             deleteDirectory(exportDir);
         }
