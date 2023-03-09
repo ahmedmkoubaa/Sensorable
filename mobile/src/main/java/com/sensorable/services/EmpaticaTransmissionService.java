@@ -72,8 +72,26 @@ public class EmpaticaTransmissionService extends Service implements EmpaDataDele
         }
     }
 
-    private void sendMessageToActivity(int sensorType, float[] values) {
-        sendMessageToActivity(new SensorTransmissionCoder.SensorData(DeviceType.EMPATICA, sensorType, values));
+    // Empatica uses scientific notation and we use in our system a 13 digit format
+    // so we need to have the same in all the parts of the system
+    private long convertEmpaticaTimestampToAndroidTimestamp(double timestamp) {
+        String scientificNotation = timestamp + "";
+        double num = Double.parseDouble(scientificNotation);
+        long digits = (long) (num * Math.pow(10, 3));
+        String formatted = String.format("%012d", digits);
+        return Long.parseLong(formatted);
+
+    }
+
+    private void sendMessageToActivity(int sensorType, float[] values, double timestamp) {
+        sendMessageToActivity(
+                new SensorTransmissionCoder.SensorData(
+                        DeviceType.EMPATICA,
+                        sensorType,
+                        values,
+                        convertEmpaticaTimestampToAndroidTimestamp(timestamp)
+                )
+        );
     }
 
     private void sendInfoMessage(String msg) {
@@ -138,38 +156,38 @@ public class EmpaticaTransmissionService extends Service implements EmpaDataDele
     @Override
     public void didReceiveGSR(float gsr, double timestamp) {
         float[] values = {gsr};
-        sendMessageToActivity(Sensor.TYPE_RELATIVE_HUMIDITY, values);
+        sendMessageToActivity(Sensor.TYPE_RELATIVE_HUMIDITY, values, timestamp);
     }
 
     @Override
     public void didReceiveBVP(float bvp, double timestamp) {
         float[] values = {bvp};
-        sendMessageToActivity(EmpaticaSensorType.BVP, values);
+        sendMessageToActivity(EmpaticaSensorType.BVP, values, timestamp);
     }
 
     @Override
     public void didReceiveIBI(float ibi, double timestamp) {
         float[] values = {60 / ibi};
-        sendMessageToActivity(Sensor.TYPE_HEART_RATE, values);
-        sendMessageToActivity(EmpaticaSensorType.IBI, values);
+        sendMessageToActivity(Sensor.TYPE_HEART_RATE, values, timestamp);
+        sendMessageToActivity(EmpaticaSensorType.IBI, values, timestamp);
     }
 
     @Override
     public void didReceiveTemperature(float t, double timestamp) {
         float[] values = {t};
-        sendMessageToActivity(Sensor.TYPE_AMBIENT_TEMPERATURE, values);
+        sendMessageToActivity(Sensor.TYPE_AMBIENT_TEMPERATURE, values, timestamp);
     }
 
     @Override
     public void didReceiveAcceleration(int x, int y, int z, double timestamp) {
         float[] values = {x, y, z};
-        sendMessageToActivity(Sensor.TYPE_LINEAR_ACCELERATION, values);
+        sendMessageToActivity(Sensor.TYPE_LINEAR_ACCELERATION, values, timestamp);
     }
 
     @Override
     public void didReceiveBatteryLevel(float level, double timestamp) {
         float[] values = {level};
-        sendMessageToActivity(EmpaticaSensorType.BATTERY_LEVEL, values);
+        sendMessageToActivity(EmpaticaSensorType.BATTERY_LEVEL, values, timestamp);
     }
 
     @Override

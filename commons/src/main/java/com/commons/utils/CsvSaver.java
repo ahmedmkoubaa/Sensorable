@@ -16,7 +16,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CsvSaver {
@@ -112,7 +111,7 @@ public class CsvSaver {
     public static void exportToCsv(final List<SensorMessageEntity> sensorMessages, final String userCode) {
         // filter by device type and by sensor type dynamically using the already defined data types
         getDevicesNames().stream().forEach(device -> {
-            SensorableConstants.LISTENED_SENSORS.forEach(sensor -> {
+            SensorableConstants.SAVED_SENSORS_IN_CSV.forEach(sensor -> {
                 ArrayList<SensorMessageEntity> filteredArray = sensorMessages.stream()
                         .filter(sensorMessage -> sensorMessage.deviceType == device.first)
                         .filter(sensorMessage -> sensorMessage.sensorType == sensor.first)

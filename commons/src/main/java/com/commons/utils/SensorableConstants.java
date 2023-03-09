@@ -106,8 +106,9 @@ public class SensorableConstants {
     public static final String CSV_EXTENSION = "csv";
     public static final String FILE_PATH_SEPARATOR = "/";
 
+    public static final int TYPE_RAW_PPG = 65572;
 
-    public static final List<Pair<Integer, String>> LISTENED_SENSORS = Arrays.asList(
+    public static final List<Pair<Integer, String>> SAVED_SENSORS_IN_CSV = Arrays.asList(
             new Pair(Sensor.TYPE_PROXIMITY, "TYPE_PROXIMITY"),
             new Pair(Sensor.TYPE_HEART_RATE, "TYPE_HEART_RATE"),
             new Pair(Sensor.TYPE_STEP_COUNTER, "TYPE_STEP_COUNTER"),
@@ -116,7 +117,8 @@ public class SensorableConstants {
             new Pair(Sensor.TYPE_LINEAR_ACCELERATION, "TYPE_LINEAR_ACCELERATION"),
             new Pair(Sensor.TYPE_RELATIVE_HUMIDITY, "TYPE_RELATIVE_HUMIDITY"),
             new Pair(Sensor.TYPE_AMBIENT_TEMPERATURE, "TYPE_AMBIENT_TEMPERATURE"),
-            new Pair(65572, "TYPE_RAW_PPG")
+            new Pair(Sensor.TYPE_GYROSCOPE, "TYPE_GYROSCOPE"),
+            new Pair(TYPE_RAW_PPG, "TYPE_RAW_PPG")
     );
 
 
