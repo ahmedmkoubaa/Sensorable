@@ -93,7 +93,6 @@ public class WearForegroundService extends Service {
 
         // If we get killed, after returning from here, restart
         return START_STICKY;
-
     }
 
     private void doForegroundJob() {
@@ -189,8 +188,8 @@ public class WearForegroundService extends Service {
         NotificationCompat.Action action = new NotificationCompat.Action.Builder(R.layout.stop_24, "Parar", stopIntent).build();
 
         return builder
-                .setContentTitle("CSV saver")
-                .setContentText("Guardando lecturas en CSV")
+                .setContentTitle("Sensorable")
+                .setContentText("Recogiendo datos")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setTicker("CSV")
                 .addAction(action)
@@ -212,7 +211,6 @@ public class WearForegroundService extends Service {
         doForegroundJob();
     }
 
-
     private void stopService() {
         Log.d("SERVICE", "Se ha parado el servicio");
 
@@ -230,7 +228,6 @@ public class WearForegroundService extends Service {
 
         // Set the service to stopped
         isServiceStarted = false;
-        ServiceStatePreferences.setServiceState(this, ServiceState.STOPPED);
         ServiceStatePreferences.setServiceState(this, ServiceState.STOPPED);
 
         // remove sensors listener to avoid receving new data

@@ -1,21 +1,23 @@
 package com.sensorable.activities;
 
 import android.os.Bundle;
-import android.support.wearable.activity.WearableActivity;
+import android.view.ContextThemeWrapper;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.commons.utils.DeviceType;
 import com.commons.utils.LoginHelper;
 import com.sensorable.R;
 import com.sensorable.utils.WearosEnvironment;
 
-public class ConfigActivity extends WearableActivity {
-
+public class ConfigActivity extends AppCompatActivity {
     private TextView userCode;
-    private Button confirmUsercode;
+    private Button saveUserButton;
     private ToggleButton usedHandtoggle;
 
     @Override
@@ -26,8 +28,11 @@ public class ConfigActivity extends WearableActivity {
         userCode = (TextView) findViewById(R.id.userIdText);
         userCode.setText(getUserCode());
 
-        confirmUsercode = (Button) findViewById(R.id.saveUserIdButton);
-        confirmUsercode.setOnClickListener(view -> LoginHelper.saveLogin(this, userCode.getText().toString()));
+        saveUserButton = (Button) findViewById(R.id.saveUserIdButton);
+        saveUserButton.setOnClickListener(view -> {
+            LoginHelper.saveLogin(this, userCode.getText().toString());
+            finish();
+        });
 
         usedHandtoggle = findViewById(R.id.usedHandToggleButton);
         usedHandtoggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -37,8 +42,18 @@ public class ConfigActivity extends WearableActivity {
             }
         });
 
-        // Enables Always-on
-        setAmbientEnabled();
+        usedHandtoggle.setOnClickListener(v -> {
+            // revert the click
+            usedHandtoggle.setChecked(!usedHandtoggle.isChecked());
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.Theme_AppCompat_Dialog)); // Change "this" to `getActivity()` if you're using this on a fragment
+            builder.setMessage("Cambiar de mano?")
+                    .setPositiveButton("Sí", (dialogInterface, i) -> usedHandtoggle.setChecked(!usedHandtoggle.isChecked()))
+                    .setNegativeButton("No", null)
+                    .show();
+
+
+        });
     }
 
     private String getUserCode() {

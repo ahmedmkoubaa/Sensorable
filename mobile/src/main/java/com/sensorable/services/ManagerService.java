@@ -16,7 +16,7 @@ public class ManagerService extends Service {
             initializeWearOsTransmissionService();
             initializeEmpaticaTransmissionService();
 
-            initializeSensorsProviderService();
+//            initializeSensorsProviderService();
             initializeAdlDetectionService();
             initializeBackUpService();
             initializeCsvSaverService();
