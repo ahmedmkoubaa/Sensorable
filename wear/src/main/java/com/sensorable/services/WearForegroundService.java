@@ -49,7 +49,7 @@ public class WearForegroundService extends Service {
             65572 // Sensor PPG Raw
     };
 
-    private final PowerManager.WakeLock wakeLock = null;
+    private PowerManager.WakeLock wakeLock = null;
     private final String TAG = "WearForegroundService::lock";
 
     private final ArrayList<SensorTransmissionCoder.SensorData> sensorDataBuffer = new ArrayList<>();
@@ -207,7 +207,7 @@ public class WearForegroundService extends Service {
         ServiceStatePreferences.setServiceState(this, ServiceState.STARTED); // Set the service state to started
 
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
         wakeLock.acquire(); // we need this lock so our service gets not affected by Doze Mode
 
         // Start the sensors and do the needed function
