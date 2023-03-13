@@ -14,6 +14,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.os.SystemClock;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -44,10 +45,11 @@ public class WearForegroundService extends Service {
             Sensor.TYPE_STEP_COUNTER,
             Sensor.TYPE_LINEAR_ACCELERATION,
             Sensor.TYPE_ACCELEROMETER,
-            Sensor.TYPE_GYROSCOPE
+            Sensor.TYPE_GYROSCOPE,
+            65572 // Sensor PPG Raw
     };
 
-    private final PowerManager.WakeLock wakeLock = null;
+    private PowerManager.WakeLock wakeLock = null;
     private final String TAG = "WearForegroundService::lock";
 
     private final ArrayList<SensorTransmissionCoder.SensorData> sensorDataBuffer = new ArrayList<>();
@@ -93,7 +95,6 @@ public class WearForegroundService extends Service {
 
         // If we get killed, after returning from here, restart
         return START_STICKY;
-
     }
 
     private void doForegroundJob() {
@@ -111,7 +112,8 @@ public class WearForegroundService extends Service {
                         new SensorTransmissionCoder.SensorData(
                                 WearosEnvironment.getDeviceType(),
                                 sensorEvent.sensor.getType(),
-                                sensorEvent.values
+                                sensorEvent.values,
+                                System.currentTimeMillis() + (sensorEvent.timestamp - SystemClock.elapsedRealtimeNanos()) / 1000000
                         );
 
                 sensorSender.sendMessage(newSensorEvent);
@@ -189,8 +191,8 @@ public class WearForegroundService extends Service {
         NotificationCompat.Action action = new NotificationCompat.Action.Builder(R.layout.stop_24, "Parar", stopIntent).build();
 
         return builder
-                .setContentTitle("CSV saver")
-                .setContentText("Guardando lecturas en CSV")
+                .setContentTitle("Sensorable")
+                .setContentText("Recogiendo datos")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setTicker("CSV")
                 .addAction(action)
@@ -205,13 +207,12 @@ public class WearForegroundService extends Service {
         ServiceStatePreferences.setServiceState(this, ServiceState.STARTED); // Set the service state to started
 
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
         wakeLock.acquire(); // we need this lock so our service gets not affected by Doze Mode
 
         // Start the sensors and do the needed function
         doForegroundJob();
     }
-
 
     private void stopService() {
         Log.d("SERVICE", "Se ha parado el servicio");
@@ -230,7 +231,6 @@ public class WearForegroundService extends Service {
 
         // Set the service to stopped
         isServiceStarted = false;
-        ServiceStatePreferences.setServiceState(this, ServiceState.STOPPED);
         ServiceStatePreferences.setServiceState(this, ServiceState.STOPPED);
 
         // remove sensors listener to avoid receving new data

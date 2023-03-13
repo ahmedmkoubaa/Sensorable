@@ -28,7 +28,6 @@ public class SensorsProviderService extends Service {
     private final ArrayList<SensorTransmissionCoder.SensorData> sensorMessagesBuffer = new ArrayList<>();
     private SensorsProvider sensorsProvider;
 
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
@@ -56,7 +55,7 @@ public class SensorsProviderService extends Service {
                 }
             };
 
-            for (Pair<Integer, String> sensorCode : SensorableConstants.LISTENED_SENSORS) {
+            for (Pair<Integer, String> sensorCode : SensorableConstants.SAVED_SENSORS_IN_CSV) {
                 sensorsProvider.subscribeToSensor(sensorCode.first, transmissionListener, SensorManager.SENSOR_DELAY_NORMAL);
             }
 

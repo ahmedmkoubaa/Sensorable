@@ -16,7 +16,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CsvSaver {
@@ -28,27 +27,21 @@ public class CsvSaver {
 
         File exportFile = new File(exportDir.getAbsolutePath(), fileName + SensorableConstants.FILE_EXTENSION_SEPARATOR + SensorableConstants.CSV_EXTENSION);
 
-        try {
-            exportFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            CSVWriter writer = new CSVWriter(new FileWriter(exportFile, true));
+        try{
+            FileWriter writer = new FileWriter(exportFile, true);
+            if (exportFile.length() == 0) {
+                writer.write("eje_x,eje_y,eje_z,timestamp");
+                writer.write(System.getProperty( "line.separator"));
+            }
 
             for (SensorMessageEntity sensorMessage : sensorMessages) {
-                String[] row = {
-                        String.valueOf(sensorMessage.valuesX),
-                        String.valueOf(sensorMessage.valuesY),
-                        String.valueOf(sensorMessage.valuesZ),
-                        String.valueOf(sensorMessage.timestamp),
-                };
-                writer.writeNext(row);
+                writer.write(sensorMessage.valuesX + "," + sensorMessage.valuesY + "," + sensorMessage.valuesZ + "," + sensorMessage.timestamp);
+                writer.write(System.getProperty( "line.separator" ));
             }
+            writer.flush();
             writer.close();
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             Log.e("CSV SAVER SERVICE", "FAILURE SAVING DATA" + e.getMessage());
             deleteDirectory(exportDir);
         }
@@ -118,7 +111,7 @@ public class CsvSaver {
     public static void exportToCsv(final List<SensorMessageEntity> sensorMessages, final String userCode) {
         // filter by device type and by sensor type dynamically using the already defined data types
         getDevicesNames().stream().forEach(device -> {
-            SensorableConstants.LISTENED_SENSORS.forEach(sensor -> {
+            SensorableConstants.SAVED_SENSORS_IN_CSV.forEach(sensor -> {
                 ArrayList<SensorMessageEntity> filteredArray = sensorMessages.stream()
                         .filter(sensorMessage -> sensorMessage.deviceType == device.first)
                         .filter(sensorMessage -> sensorMessage.sensorType == sensor.first)
