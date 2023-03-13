@@ -46,7 +46,7 @@ public class WearForegroundService extends Service {
             Sensor.TYPE_LINEAR_ACCELERATION,
             Sensor.TYPE_ACCELEROMETER,
             Sensor.TYPE_GYROSCOPE,
-            65572 // Sensor PPG Raw
+            SensorableConstants.TYPE_RAW_PPG// Sensor PPG Raw
     };
 
     private PowerManager.WakeLock wakeLock = null;
@@ -136,18 +136,23 @@ public class WearForegroundService extends Service {
 
         // if we have the desired amount to save or even more
         if (sensorDataBuffer.size() >= SensorableConstants.MAX_COLLECTED_DATA_EXPORT_CSV) {
-            ArrayList<SensorTransmissionCoder.SensorData> newSensors = new ArrayList<>(sensorDataBuffer);
-
-            // remove all the saved sensors from the buffer
-            sensorDataBuffer.clear();
-            ArrayList<SensorMessageEntity> sensorEntities = SensorTransmissionCoder.SensorData.toSensorDataMessages(newSensors);
-
-            // save into the local database format
-            executor.execute(() -> sensorMessageDao.insertAll(sensorEntities));
-
-            // save into the csv file
-            CsvSaver.exportToCsv(sensorEntities, Objects.toString(LoginHelper.getUserCode(getApplicationContext()), "NULL"));
+            exportData();
         }
+    }
+
+    // It exports the data from the internal attribute sensorDataBuffer
+    private void exportData() {
+        ArrayList<SensorTransmissionCoder.SensorData> newSensors = new ArrayList<>(sensorDataBuffer);
+
+        // remove all the saved sensors from the buffer
+        sensorDataBuffer.clear();
+        ArrayList<SensorMessageEntity> sensorEntities = SensorTransmissionCoder.SensorData.toSensorDataMessages(newSensors);
+
+        // save into the local database format
+        executor.execute(() -> sensorMessageDao.insertAll(sensorEntities));
+
+        // save into the csv file
+        CsvSaver.exportToCsv(sensorEntities, Objects.toString(LoginHelper.getUserCode(getApplicationContext()), "NULL"));
     }
 
     private void initializeDatabase() {
@@ -238,7 +243,8 @@ public class WearForegroundService extends Service {
     }
 
     private void removeSensorsListeners() {
-            sensorsProvider.unsubscribeToSensor(listenerDataSender);
+        sensorsProvider.unsubscribeToSensor(listenerDataSender);
+        exportData();
     }
 
 }

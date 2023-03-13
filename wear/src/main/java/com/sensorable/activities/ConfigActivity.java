@@ -19,6 +19,8 @@ public class ConfigActivity extends AppCompatActivity {
     private TextView userCode;
     private Button saveUserButton;
     private ToggleButton usedHandtoggle;
+    private static final String leftHand = "IZQUIERDA";
+    private static final String rightHand = "DERECHA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +37,18 @@ public class ConfigActivity extends AppCompatActivity {
         });
 
         usedHandtoggle = findViewById(R.id.usedHandToggleButton);
+
+        // Set the default values
+        usedHandtoggle.setTextOff(leftHand);
+        usedHandtoggle.setTextOn(rightHand);
+
+        // retrieve the stored data
+        usedHandtoggle.setChecked(WearosEnvironment.getDeviceType(this) == DeviceType.WEAROS_RIGHT_HAND);
+
         usedHandtoggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                WearosEnvironment.setDeviceType(isChecked ? DeviceType.WEAROS_RIGHT_HAND : DeviceType.WEAROS_LEFT_HAND);
+                WearosEnvironment.setDeviceType(ConfigActivity.this, isChecked ? DeviceType.WEAROS_RIGHT_HAND : DeviceType.WEAROS_LEFT_HAND);
             }
         });
 
@@ -48,7 +58,9 @@ public class ConfigActivity extends AppCompatActivity {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.Theme_AppCompat_Dialog)); // Change "this" to `getActivity()` if you're using this on a fragment
             builder.setMessage("Cambiar de mano?")
-                    .setPositiveButton("Sí", (dialogInterface, i) -> usedHandtoggle.setChecked(!usedHandtoggle.isChecked()))
+                    .setPositiveButton("Sí", (dialogInterface, i) -> {
+                        usedHandtoggle.setChecked(!usedHandtoggle.isChecked());
+                    })
                     .setNegativeButton("No", null)
                     .show();
 
