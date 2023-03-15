@@ -99,12 +99,14 @@ Los proyectos Mobile y Wear son principalmente interfaces y están compuestas po
 
 Una vez clonado el repositorio este deberá ser abierto con Android Studio. Este framework permite la instalación de dependencias y configuración automática del proyecto. Si se quiere configurar cualquier aspecto de manera manual, entonces habrá que hacer uso de los ficheros de configuración:
 
+```
 ├── build.gradle\
 ├── gradle.properties\
 ├── gradlew\
 ├── gradlew.bat\
 ├── local.properties\
 └── settings.gradle
+```
 
 Se recomienda siempre usar en producción la rama master que es aquella que integra los últimos cambios de manera estable.
 Para tareas de desarrollo se recomienda usar development por ser la rama orientada a añadir nuevos cambios y testearlos, suele presentar inestabilidad hasta que no se pasan los tests de integración.
