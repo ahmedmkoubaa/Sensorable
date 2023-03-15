@@ -16,21 +16,21 @@ import com.sensorable.R;
 import com.sensorable.utils.WearosEnvironment;
 
 public class ConfigActivity extends AppCompatActivity {
+    private static final String leftHand = "IZQUIERDA";
+    private static final String rightHand = "DERECHA";
     private TextView userCode;
     private Button saveUserButton;
     private ToggleButton usedHandtoggle;
-    private static final String leftHand = "IZQUIERDA";
-    private static final String rightHand = "DERECHA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config);
 
-        userCode = (TextView) findViewById(R.id.userIdText);
+        userCode = findViewById(R.id.userIdText);
         userCode.setText(getUserCode());
 
-        saveUserButton = (Button) findViewById(R.id.saveUserIdButton);
+        saveUserButton = findViewById(R.id.saveUserIdButton);
         saveUserButton.setOnClickListener(view -> {
             LoginHelper.saveLogin(this, userCode.getText().toString());
             finish();

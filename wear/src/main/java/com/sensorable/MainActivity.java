@@ -1,11 +1,14 @@
 package com.sensorable;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.wearable.activity.WearableActivity;
+import android.util.Log;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.LinearLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.commons.utils.Actions;
 import com.commons.utils.SensorableConstants;
@@ -14,12 +17,9 @@ import com.commons.utils.ServiceState;
 import com.commons.utils.ServiceStatePreferences;
 import com.sensorable.activities.ConfigActivity;
 import com.sensorable.services.WearForegroundService;
-import com.sensorable.utils.LoggerAdapter;
-import com.sensorable.utils.SensorableLogger;
 
-public class MainActivity extends WearableActivity {
-    private LoggerAdapter loggerAdapter;
-    private ListView loggerList;
+public class MainActivity extends AppCompatActivity {
+    private static LinearLayout mainBackground;
     private Button configButton;
 
     @Override
@@ -54,8 +54,8 @@ public class MainActivity extends WearableActivity {
             @Override
             public void run() {
                 // do something
-                loggerAdapter.notifyDataSetChanged();
-                handler.postDelayed(this, SensorableConstants.SCHEDULE_LOGGER_REFRESH);  // 1 second delay
+//                loggerAdapter.notifyDataSetChanged();
+                handler.postDelayed(this, SensorableConstants.SCHEDULE_LOGGER_REFRESH);
             }
         };
         handler.post(runnable);
@@ -63,13 +63,28 @@ public class MainActivity extends WearableActivity {
 
     // this is pure front end and can stay right here
     private void initializeUIElements() {
-        loggerAdapter = new LoggerAdapter(getBaseContext(), R.layout.logger_message_layout, SensorableLogger.getLoggedData());
-        loggerAdapter.setNotifyOnChange(true);
-
-        loggerList = findViewById(R.id.loggerList);
-        loggerList.setAdapter(loggerAdapter);
-
         configButton = findViewById(R.id.configuButton);
         configButton.setOnClickListener(v -> startActivity(new Intent(this, ConfigActivity.class)));
+
+        mainBackground = findViewById(R.id.mainBackground);
+        mainBackground.setBackgroundColor(Color.BLACK);
+    }
+
+    public static class MainFeedback {
+        private static void setColorState(int color) {
+            if (mainBackground != null) {
+                mainBackground.setBackgroundColor(color);
+            } else {
+                Log.e("Wear OS MAIN ACTIVITY", "Unintialized main background");
+            }
+        }
+
+        public static void setSuccess() {
+            setColorState(Color.GREEN);
+        }
+
+        public static void setFailure() {
+            setColorState(Color.RED);
+        }
     }
 }
