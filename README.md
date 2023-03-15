@@ -15,33 +15,35 @@ En el paquete commons tenemos código útil para ambos proyectos que se usa indi
 Estructura del proyecto
 La estructura detallada del proyecto con los diferentes paquetes que lo forman es la siguiente:
 
-.\
-├── Sensorable\
-├── commons\
-│   ├── build\
-│   ├── src\
-│   ├── build.gradle\
-│   ├── consumer-rules.pro\
-│   └── proguard-rules.pro\
-├── gradle\
-│   └── wrapper\
-├── mobile\
-│   ├── build\
-│   ├── libs\
-│   ├── src\
-│   ├── build.gradle\
-│   └── proguard-rules.pro\
-├── wear\
-│   ├── build\
-│   ├── src\
-│   ├── build.gradle\
-│   └── proguard-rules.pro\
-├── build.gradle\
-├── gradle.properties\
-├── gradlew\
-├── gradlew.bat\
-├── local.properties\
-└── settings.gradle\
+.
+├── Sensorable
+├── commons
+│ ├── build
+│ ├── src
+│ ├── build.gradle
+│ ├── consumer-rules.pro
+│ └── proguard-rules.pro
+├── gradle
+│ └── wrapper
+├── mobile
+│ ├── build
+│ ├── libs
+│ ├── src
+│ ├── README.md
+│ ├── build.gradle
+│ └── proguard-rules.pro
+├── wear
+│ ├── build
+│ ├── src
+│ ├── build.gradle
+│ └── proguard-rules.pro
+├── README.md
+├── build.gradle
+├── gradle.properties
+├── gradlew
+├── gradlew.bat
+├── local.properties
+└── settings.gradle
 
 Como podemos ver tenemos los diferentes paquetes que forman el proyecto al completo además de una serie de ficheros de configuración que pueden modificarse a nivel local por cada usuario para usar la configuración del entorno que más se le adecúe.
 
