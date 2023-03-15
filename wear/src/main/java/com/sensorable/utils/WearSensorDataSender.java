@@ -14,6 +14,7 @@ import com.google.android.gms.wearable.CapabilityClient;
 import com.google.android.gms.wearable.CapabilityInfo;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.Wearable;
+import com.sensorable.MainActivity;
 
 
 import java.util.ArrayList;
@@ -93,7 +94,8 @@ public class WearSensorDataSender {
                                 new OnSuccessListener() {
                                     @Override
                                     public void onSuccess(Object o) {
-                                        SensorableLogger.log("Successfully sent sensors to android");
+                                        MainActivity.MainFeedback.setSuccess();
+
                                     }
                                 });
 
@@ -101,13 +103,13 @@ public class WearSensorDataSender {
                         sendTask.addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                SensorableLogger.log("Failed to send sensors");
+
+                                MainActivity.MainFeedback.setFailure();
                                 sensorsBuffer.addAll(0, sensorsBackUpBuffer);
                             }
                         });
                     } else {
-                        // Unable to retrieve node with transcription capability
-                        SensorableLogger.log("NO NEARBY NODE");
+                        MainActivity.MainFeedback.setFailure();
                     }
                 }
             });
