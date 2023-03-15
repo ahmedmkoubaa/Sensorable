@@ -15,6 +15,7 @@ En el paquete commons tenemos código útil para ambos proyectos que se usa indi
 Estructura del proyecto
 La estructura detallada del proyecto con los diferentes paquetes que lo forman es la siguiente:
 
+```
 .
 ├── Sensorable
 ├── commons
@@ -44,6 +45,7 @@ La estructura detallada del proyecto con los diferentes paquetes que lo forman e
 ├── gradlew.bat
 ├── local.properties
 └── settings.gradle
+```
 
 Como podemos ver tenemos los diferentes paquetes que forman el proyecto al completo además de una serie de ficheros de configuración que pueden modificarse a nivel local por cada usuario para usar la configuración del entorno que más se le adecúe.
 
