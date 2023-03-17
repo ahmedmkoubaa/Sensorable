@@ -121,3 +121,463 @@ Este proyecto ha sido depurado con diferentes mecanismos y se han asegurado algu
 - optimización de uso de CPU
 
 Para depurar el sistema se recomienda utilizar el debugger que usa de oficio Android Studio.
+
+
+
+## DOCUMENTACIÓN ACTIVIDADES Y PASOS
+
+
+### este sistema está diseñado pra la recolección de datos en un entorno experimental, porlo tanto, es muy relevante saber qué códigos están asociados a cada una de las actividades que se pueden realizar durante un experimento así como los pasos que se seguirán durante dicha actividad.
+
+
+### Ponerse una bata sanitaria: 1
+
+Actividad dentro del vestido con baja complejidad que se puede subdividir en pasos. Se debe realizar en una sala de ambiente tranquilo, sin demasiados distractores, con luz natural. 
+
+
+<table>
+  <tr>
+   <td><strong>Pasos relacionados</strong>
+   </td>
+   <td><strong>Id paso</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>Coge la bata
+   </td>
+   <td>1
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza a meter la manga dominante
+   </td>
+   <td>2
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba de meter la manga dominante
+   </td>
+   <td>3
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza a meter la manga NO dominante 
+   </td>
+   <td>4
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba de meter la manga NO dominante
+   </td>
+   <td>5
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba de colocarse la bata 
+   </td>
+   <td>6
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza a colocar el cuello  
+   </td>
+   <td>7
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba de colocar el cuello        
+   </td>
+   <td>8
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza a abrocharse los dos botones
+   </td>
+   <td>9
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba de abrocharse los dos botones
+   </td>
+   <td>10
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza a desabrocharse los dos botones
+   </td>
+   <td>11
+   </td>
+  </tr>
+  <tr>
+   <td>Terminó de desabrochar los dos botones
+   </td>
+   <td>12
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza a quitar la manga dominante
+   </td>
+   <td>13
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba de quitar la manga dominante
+   </td>
+   <td>14
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza a quitar la manga NO dominante
+   </td>
+   <td>15
+   </td>
+  </tr>
+  <tr>
+   <td>Deja la bata donde estaba
+   </td>
+   <td>16
+   </td>
+  </tr>
+</table>
+
+
+
+### Ponerse un zapato y atarse los cordones: 2
+
+Actividad dentro del vestido con complejidad media que se puede subdividir en pasos. Se debe realizar en una sala de ambiente tranquilo, sin demasiados distractores, con luz natural.
+
+
+<table>
+  <tr>
+   <td><strong>Pasos relacionados</strong>
+   </td>
+   <td><strong>Id paso</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>Estar sentado
+   </td>
+   <td>17
+   </td>
+  </tr>
+  <tr>
+   <td>Se coloca la bolsa en el pie.
+   </td>
+   <td>18
+   </td>
+  </tr>
+  <tr>
+   <td>Coge el zapato o toca con el pie el zapato
+   </td>
+   <td>19
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza a meter el pie ensanchando la zona del elástico
+   </td>
+   <td>20
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba de meter el pie
+   </td>
+   <td>21
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza a quitárselo ensanchando la zona del elástico
+   </td>
+   <td>22
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba de quitarse el zapato
+   </td>
+   <td>23
+   </td>
+  </tr>
+</table>
+
+
+
+### Prueba del algómetro: 3
+
+ Un dispositivo algómetro de presión de dial equipado con una cabeza circular es utilizado para aplicar presión en puntos clave del cuerpo del paciente. Entre dichos puntos encontramos los hombros, los antebrazos y las manos.
+
+
+<table>
+  <tr>
+   <td><strong>Pasos relacionados</strong>
+   </td>
+   <td><strong>Id paso</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza trapecio dominante 1
+   </td>
+   <td>24
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba trapecio dominante 1
+   </td>
+   <td>25
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza trapecio dominante 2
+   </td>
+   <td>26
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba trapecio dominante 2
+   </td>
+   <td>27
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza trapecio dominante 3
+   </td>
+   <td>28
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba trapecio dominante 3
+   </td>
+   <td>29
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza trapecio NO dominante 1
+   </td>
+   <td>30
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba trapecio NO dominante 1
+   </td>
+   <td>31
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza trapecio NO dominante 2
+   </td>
+   <td>32
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba trapecio NO dominante 2
+   </td>
+   <td>33
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza trapecio NO dominante 3
+   </td>
+   <td>34
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba trapecio NO dominante 3
+   </td>
+   <td>35
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza antebrazo dominante 1
+   </td>
+   <td>36
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba antebrazo dominante 1
+   </td>
+   <td>37
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza antebrazo dominante 2
+   </td>
+   <td>38
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba antebrazo dominante 2
+   </td>
+   <td>39
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza antebrazo dominante 3
+   </td>
+   <td>40
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba antebrazo dominante 3
+   </td>
+   <td>41
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza antebrazo NO dominante 1
+   </td>
+   <td>42
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba antebrazo NO dominante 1
+   </td>
+   <td>43
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza antebrazo NO dominante 2
+   </td>
+   <td>44
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba antebrazo NO dominante 2
+   </td>
+   <td>45
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza antebrazo NO dominante 3
+   </td>
+   <td>46
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba antebrazo NO dominante 3
+   </td>
+   <td>47
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza mano dominante 1
+   </td>
+   <td>48
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba mano dominante 1
+   </td>
+   <td>49
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza mano dominante 2
+   </td>
+   <td>50
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba mano dominante 2
+   </td>
+   <td>51
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza mano dominante 3
+   </td>
+   <td>52
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba mano dominante 3
+   </td>
+   <td>53
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza mano NO dominante 1
+   </td>
+   <td>54
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba mano NO dominante 1
+   </td>
+   <td>55
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza mano NO dominante 2
+   </td>
+   <td>56
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba mano NO dominante 2
+   </td>
+   <td>57
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza mano NO dominante 3
+   </td>
+   <td>58
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba mano NO dominante 3
+   </td>
+   <td>59
+   </td>
+  </tr>
+</table>
+
+
+
+### Cuestionarios: 4
+
+Se le pasan una serie de cuestionarios al usuario para comprobar cómo reacciona ante ciertas preguntas y medir su estado fisiológico basal, de manera que durante las pruebas de dolor y otras veamos diferencias.
+
+
+<table>
+  <tr>
+   <td><strong>Pasos relacionados</strong>
+   </td>
+   <td><strong>Id paso</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza el cuestionario 1
+   </td>
+   <td>60
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba el cuestionario 1
+   </td>
+   <td>61
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza el cuestionario 2
+   </td>
+   <td>62
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza el cuestionario 2
+   </td>
+   <td>63
+   </td>
+  </tr>
+  <tr>
+   <td>Empieza el cuestionario 3
+   </td>
+   <td>64
+   </td>
+  </tr>
+  <tr>
+   <td>Acaba el cuestionario 3
+   </td>
+   <td>65
+   </td>
+  </tr>
+</table>
