@@ -1,6 +1,6 @@
 # Sensorable system
 
-Esta app fue generada como parte del TFG: Sistema basado en reglas para la detección de actividades de la vida diaria mediante Fog/Edge Computing de ahmedmkoubaa@correo.ugr.es. Se ha ido adaptando para ser útil en la recogida de datos en los experimentos y de esta manera tener una serie de datos que probar para validar diferentes hipótesis.
+Esta app fue generada como parte del TFM: Sistema basado en reglas para la detección de actividades de la vida diaria mediante Cloud/Edge Computing de ahmedmkoubaa@correo.ugr.es. Se ha ido adaptando para ser útil en la recogida de datos en los experimentos y de esta manera tener una serie de datos que probar para validar diferentes hipótesis.
 
 Esta aplicación se encuentra formada por 3 subproyectos o paquetes principales. Entre ellos tenemos:
 
