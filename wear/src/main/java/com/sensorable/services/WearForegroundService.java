@@ -41,26 +41,23 @@ import java.util.concurrent.ExecutorService;
 
 public class WearForegroundService extends Service {
     private static final int[] listenedSensors = {
-            Sensor.TYPE_HEART_RATE,
-            Sensor.TYPE_STEP_COUNTER,
-            Sensor.TYPE_LINEAR_ACCELERATION,
+//            Sensor.TYPE_HEART_RATE,
+//            Sensor.TYPE_STEP_COUNTER,
+//            Sensor.TYPE_LINEAR_ACCELERATION,
             Sensor.TYPE_ACCELEROMETER,
             Sensor.TYPE_GYROSCOPE,
             SensorableConstants.TYPE_RAW_PPG// Sensor PPG Raw
     };
 
-    private PowerManager.WakeLock wakeLock = null;
     private final String TAG = "WearForegroundService::lock";
-
     private final ArrayList<SensorTransmissionCoder.SensorData> sensorDataBuffer = new ArrayList<>();
-
-    private boolean isServiceStarted = false;
+    private PowerManager.WakeLock wakeLock = null;
     private SensorableDatabase database;
     private SensorMessageDao sensorMessageDao;
     private ExecutorService executor;
 
-    private SensorsProvider sensorsProvider;
-    private WearSensorDataSender sensorSender;
+    private SensorsProvider sensorsProvider = null;
+    private WearSensorDataSender sensorSender = null;
     private SensorEventListener listenerDataSender;
 
     @Override
@@ -84,12 +81,11 @@ public class WearForegroundService extends Service {
             } else if (action.equals(Actions.STOP.name())) {
                 stopService();
             } else {
-                Log.d("SERVICE", "This should never happen. No action in the received intent");
+                Log.d(TAG, "This should never happen. No action in the received intent");
             }
 
         } else {
-            Log.d("SERVICE",
-                    "with a null intent. It has been probably restarted by the system."
+            Log.d(TAG, "with a null intent. It has been probably restarted by the system."
             );
         }
 
@@ -97,12 +93,19 @@ public class WearForegroundService extends Service {
         return START_STICKY;
     }
 
+    @Override
+    public void onDestroy() {
+        stopService();
+        super.onDestroy();
+
+    }
+
     private void doForegroundJob() {
         // function to do as a foregound service
         Log.d(TAG, "Working properly");
 
-        sensorsProvider = new SensorsProvider(this);
-        sensorSender = new WearSensorDataSender(this);
+        sensorsProvider = sensorsProvider != null ? sensorsProvider : new SensorsProvider(this);
+        sensorSender = sensorSender != null ? sensorSender : new WearSensorDataSender(this);
 
         listenerDataSender = new SensorEventListener() {
             @Override
@@ -116,7 +119,7 @@ public class WearForegroundService extends Service {
                                 System.currentTimeMillis() + (sensorEvent.timestamp - SystemClock.elapsedRealtimeNanos()) / 1000000
                         );
 
-                sensorSender.sendMessage(newSensorEvent);
+//                sensorSender.sendMessage(newSensorEvent);
                 exportData(newSensorEvent);
             }
 
@@ -206,21 +209,31 @@ public class WearForegroundService extends Service {
     }
 
     private void startService() {
+        ServiceState state = ServiceStatePreferences.getServiceState(this);
 
-        if (isServiceStarted) return;
-        isServiceStarted = true;
-        ServiceStatePreferences.setServiceState(this, ServiceState.STARTED); // Set the service state to started
+        // TODO: this is just for debugging, remove it when is done
+        if (true) {
+//        if (state != ServiceState.STARTED) {
 
-        PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
-        wakeLock.acquire(); // we need this lock so our service gets not affected by Doze Mode
+            ServiceStatePreferences.setServiceState(this, ServiceState.STARTED); // Set the service state to started
 
-        // Start the sensors and do the needed function
-        doForegroundJob();
+            PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
+            wakeLock.acquire(); // we need this lock so our service gets not affected by Doze Mode
+
+            // Start the sensors and do the needed function
+            doForegroundJob();
+        }
     }
 
     private void stopService() {
-        Log.d("SERVICE", "Se ha parado el servicio");
+        Log.d(TAG, "Se ha parado el servicio");
+
+        // Set the service to stopped
+        ServiceStatePreferences.setServiceState(this, ServiceState.STOPPED);
+
+        // remove sensors listener to avoid receving new data
+        removeSensorsListeners();
 
         // we need this lock so our service gets not affected by Doze Mode
         try {
@@ -229,22 +242,21 @@ public class WearForegroundService extends Service {
                     wakeLock.release();
                 }
             }
+
             stopSelf();
         } catch (Exception e) {
-            Log.d("SERVICE", "Service stopped without being started: " + e.getMessage());
+            Log.d(TAG, "Service stopped without being started: " + e.getMessage());
         }
-
-        // Set the service to stopped
-        isServiceStarted = false;
-        ServiceStatePreferences.setServiceState(this, ServiceState.STOPPED);
-
-        // remove sensors listener to avoid receving new data
-        removeSensorsListeners();
     }
 
     private void removeSensorsListeners() {
         sensorsProvider.unsubscribeToSensor(listenerDataSender);
         exportData();
+
+        sensorsProvider = null;
+        sensorSender = null;
+        listenerDataSender = null;
+
     }
 
 }
